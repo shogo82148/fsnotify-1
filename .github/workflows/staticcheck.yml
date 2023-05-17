@@ -5,6 +5,9 @@ on:
   push:
     branches: ['main', 'aix']
 
+permissions:
+  contents: read
+    
 jobs:
   staticcheck:
     name:    'staticcheck'

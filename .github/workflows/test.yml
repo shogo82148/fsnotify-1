@@ -5,6 +5,9 @@ on:
   push:
     branches: ['main', 'aix']
 
+permissions:
+  contents: read
+
 jobs:
   # Test Windows and Linux with the latest Go version and the oldest we support.
   test:
