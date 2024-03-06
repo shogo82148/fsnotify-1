@@ -75,20 +75,14 @@ jobs:
           FSNOTIFY_BUFFER=4096 go test -parallel 1 -race ./...
                                go test -parallel 1 -race ./...
 
-  # OpenBSD; no -race as the VM doesn't include the comp set.
-  #
-  # TODO: should probably add this, but on my local machine the tests time out
-  #       with -race as the waits aren't long enough (OpenBSD is kind of slow),
-  #       so should probably look into that first. Go 1.19 is supposed to have a
-  #       much faster race detector, so maybe waiting until we have that is
-  #       enough.
+  # OpenBSD
   openbsd:
     runs-on: "ubuntu-22.04"
     timeout-minutes: 30
-    name: "test (openbsd, 1.17)"
+    name: "test (openbsd, 1.21)"
     steps:
       - uses: "actions/checkout@v3"
-      - name: "test (openbsd, 1.17)"
+      - name: "test (openbsd, 1.21)"
         id: "openbsd"
         uses: "vmactions/openbsd-vm@v1"
         with:
@@ -96,8 +90,8 @@ jobs:
           run: |
             go version
             useradd -mG wheel action
-            FSNOTIFY_BUFFER=4096 su action -c 'go test -parallel 1 ./...'
-                                 su action -c 'go test -parallel 1 ./...'
+            FSNOTIFY_BUFFER=4096 su action -c 'go test -parallel 1 -race ./...'
+                                 su action -c 'go test -parallel 1 -race ./...'
 
   # NetBSD
   netbsd:
@@ -111,12 +105,11 @@ jobs:
         uses: "vmactions/netbsd-vm@v1"
         with:
           prepare: pkg_add go
-          # TODO: no -race for the same reason as OpenBSD (the timing; it does run).
           run: |
             go121 version
             useradd -mG wheel action
-            FSNOTIFY_BUFFER=4096 su action -c 'go121 test -parallel 1 ./...'
-                                 su action -c 'go121 test -parallel 1 ./...'
+            FSNOTIFY_BUFFER=4096 su action -c 'go121 test -parallel 1 -race ./...'
+                                 su action -c 'go121 test -parallel 1 -race ./...'
 
   # illumos
   illumos:
