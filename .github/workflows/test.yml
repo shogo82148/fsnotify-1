@@ -94,6 +94,7 @@ jobs:
         with:
           prepare: pkg_add go
           run: |
+            go version
             useradd -mG wheel action
             FSNOTIFY_BUFFER=4096 su action -c 'go test -parallel 1 ./...'
                                  su action -c 'go test -parallel 1 ./...'
@@ -102,16 +103,17 @@ jobs:
   netbsd:
     runs-on: "ubuntu-22.04"
     timeout-minutes: 30
-    name: test (netbsd, 1.20)
+    name: test (netbsd, 1.21)
     steps:
       - uses: "actions/checkout@v3"
-      - name: "test (netbsd, 1.20)"
+      - name: "test (netbsd, 1.21)"
         id: "netbsd"
         uses: "vmactions/netbsd-vm@v1"
         with:
           prepare: pkg_add go
           # TODO: no -race for the same reason as OpenBSD (the timing; it does run).
           run: |
+            go121 version
             useradd -mG wheel action
             FSNOTIFY_BUFFER=4096 su action -c 'go121 test -parallel 1 ./...'
                                  su action -c 'go121 test -parallel 1 ./...'
