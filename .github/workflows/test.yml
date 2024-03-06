@@ -113,8 +113,8 @@ jobs:
           # TODO: no -race for the same reason as OpenBSD (the timing; it does run).
           run: |
             useradd -mG wheel action
-            FSNOTIFY_BUFFER=4096 su action -c 'go test -parallel 1 ./...'
-                                 su action -c 'go test -parallel 1 ./...'
+            FSNOTIFY_BUFFER=4096 su action -c 'go121 test -parallel 1 ./...'
+                                 su action -c 'go121 test -parallel 1 ./...'
 
   # illumos
   illumos:
