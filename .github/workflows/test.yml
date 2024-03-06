@@ -83,7 +83,7 @@ jobs:
   #       much faster race detector, so maybe waiting until we have that is
   #       enough.
   openbsd:
-    runs-on: "macos-12"
+    runs-on: "ubuntu-22.04"
     timeout-minutes: 30
     name: "test (openbsd, 1.17)"
     steps:
@@ -100,7 +100,7 @@ jobs:
 
   # NetBSD
   netbsd:
-    runs-on: macos-12
+    runs-on: "ubuntu-22.04"
     timeout-minutes: 30
     name: test (netbsd, 1.20)
     steps:
